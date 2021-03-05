@@ -1,0 +1,75 @@
+<%- include("partials/header-facts") -%> <% for(i=0;i<factsPosts.length;i++){ %>
+  <section class="blog-section">
+    <div class="container-fluid blog-banner">
+      <div
+        class="blog-bg"
+        style="
+          background: url(../uploads/<%=factsPosts[i].blogImage.filename%>);
+          background-size: cover;
+          background-position-y: 30%;
+        "
+      >
+        <div class="blog-type">
+          <h6><%= factsPosts[i].blogCategory %></h6>
+        </div>
+      </div>
+      <div class="blog-content">
+        <h2><%= factsPosts[i].blogTitle %></h2>
+        <p><%= factsPosts[i].blogContent.substring(0,250)+"....." %></p>
+        <br />
+        <a
+          class="hvr-underline-from-center"
+          href="/posts/<%= factsPosts[i].blogTitle %>"
+          >Keep Reading</a
+        >
+        <br /><br /><br />
+        <hr />
+        <p>
+          <span class="author"
+            >By <strong><%= factsPosts[i].authorName %></strong></span
+          >
+          <span class="date"><%= factsPosts[i].blogDate %></span>
+        </p>
+      </div>
+    </div>
+  </section>
+  <% } %>
+
+  <section class="blog-section">
+    <div class="container-fluid blog-banner">
+      <div
+        class="blog-bg"
+        style="
+          background: url(../Assets/girl.jpg);
+          background-size: cover;
+          background-position-y: 30%;
+        "
+      >
+        <div class="blog-type">
+          <h6>Facts</h6>
+        </div>
+      </div>
+      <div class="blog-content">
+        <h2>Falling sensation when going to sleep.</h2>
+        <p>
+          You are about to fall asleep and all of a sudden you feel like falling
+          from a height and your body jolts itself awake. No need to worry
+          because it’s pretty normal, it’s a common experience that every
+          individual goes through. It’s actually connected ......
+        </p>
+        <br />
+        <a class="hvr-underline-from-center" href="/default/hypnic"
+          >Keep Reading</a
+        >
+        <br /><br /><br />
+        <hr />
+        <p>
+          <span class="author">By <strong>Aman Malviya</strong></span>
+          <span class="date">August 1, 2020</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <%- include("partials/footer") -%>
+</factsPosts.length;i++){>

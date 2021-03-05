@@ -1,0 +1,25 @@
+<%- include("partials/header-physics") -%>
+
+<section class="blog-section">
+    <div class="container-fluid blog-banner">
+        <div class="blog-bg" style="background: url(../uploads/<%= physicsPost.blogImage.filename %>); background-size: cover;
+    background-position-y:30%;
+    ">
+            <div class="blog-type">
+                <h6><%= physicsPost.blogCategory %></h6>
+            </div>
+        </div>
+        <div class="blog-content parameter">
+            <h2><%= physicsPost.blogTitle %> </h2>
+            <h4><%= physicsPost.blogDescription %></h4>
+            <p class="align-left"><%= physicsPost.blogContent %> </p>
+            <br><br><br>
+            <hr>
+            <p><span class="author">By <strong><%= physicsPost.authorName %></strong></span> <span
+                    class="date"><%= physicsPost.blogDate %></span></p>
+        </div>
+    </div>
+</section>
+
+
+<%- include("partials/footer") -%>

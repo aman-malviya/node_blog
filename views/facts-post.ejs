@@ -1,0 +1,25 @@
+<%- include("partials/header-facts") -%>
+
+<section class="blog-section">
+    <div class="container-fluid blog-banner">
+        <div class="blog-bg" style="background: url(../uploads/<%= factPost.blogImage.filename %>); background-size: cover;
+    background-position-y:30%;
+    ">
+            <div class="blog-type">
+                <h6><%= factPost.blogCategory %></h6>
+            </div>
+        </div>
+        <div class="blog-content parameter">
+            <h2><%= factPost.blogTitle %> </h2>
+            <h4><%= factPost.blogDescription %> </h4>
+            <p class="align-left"><%= factPost.blogContent %> </p>
+            <br><br><br>
+            <hr>
+            <p><span class="author">By <strong><%= factPost.authorName %></strong></span> <span
+                    class="date"><%= factPost.blogDate %></span></p>
+        </div>
+    </div>
+</section>
+
+
+<%- include("partials/footer") -%>

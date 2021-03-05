@@ -1,0 +1,45 @@
+<%- include("partials/header") -%>
+
+<section class="compose">
+    <div class="compose-title">
+        <div class="compose-heading">
+            <hr>
+            <p>Write a blog</p>
+            <hr>
+        </div>
+    </div>
+
+    <form class="blog-panel" action="/compose" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="select">Select a suitable Category for your Post</label>
+            <select class="form-control" name="category" id="">
+                <option value="Physics">Physics</option>
+                <option value="LifeStyle">Life Style</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="inputfile">Select an image to Post</label>
+            <input name="inputfile" class="choose-file" type="file" enctype="multipart/form-data" required>
+            <p style="font-size: 0.8rem" class="text-muted">Please choose a landscape image as it will be auto-resized.
+            </p>
+        </div>
+        <div class="form-group">
+            <input name="author" class="form-control" type="text" placeholder="Enter Your Name" required>
+        </div>
+        <div class="form-group">
+            <input name="title" class="form-control" maxlength="100" type="text"
+                placeholder="Enter the Title of your Post" required>
+        </div>
+        <div class="form-group">
+            <input name="description" class="form-control" type="text" placeholder="Enter the Description of your Post">
+        </div>
+
+        <div class="form-group">
+            <textarea required placeholder="Your Post Content" class="form-control" name="content" id="" cols="30"
+                rows="8"></textarea>
+        </div>
+        <button type="submit">Publish</button>
+    </form>
+</section>
+
+<%- include("partials/footer") -%>
