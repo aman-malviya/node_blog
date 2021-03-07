@@ -1,4 +1,5 @@
 
+
 $("document").ready(function () {
     $('nav a[href^="/' + location.pathname.split("/")[1] + '"]').addClass("top-border");
     $('nav a[href^="/' + location.pathname.split("/")[1] + '"]').removeClass("hvr-underline-reveal");
@@ -21,3 +22,4 @@ $("document").ready(function () {
         $(".nav-link").removeClass("hvr-underline-reveal");
     }
 });
+

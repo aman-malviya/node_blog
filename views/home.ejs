@@ -2,174 +2,49 @@
 
 <section class="category-section">
   <div class="row no-gutters">
-    <div class="col-lg-6 category-1-outer">
-      <a href="/categories/physics">
-        <div class="category-1-bg">
+    <% for(let i=0; i<categories.length && i<4; i++){ %> 
+    <div class="col-lg-3 category-outer">
+      <a href="/categories/<%= categories[i].category %>">
+        <div class="category-inner">
           <div class="category-shade">
-            <h6>Physics</h6>
+            <h6><%= categories[i].category %></h6>
           </div>
         </div>
       </a>
     </div>
-    <div class="col-lg-6 category-2-outer">
-      <a href="/categories/facts">
-        <div class="category-2-bg">
-          <div class="category-shade">
-            <h6>Life Style</h6>
-          </div>
-        </div>
-      </a>
-    </div>
+    <% } %> 
   </div>
 </section>
-
-<% for(i=0;i<posts.length;i++){ %>
+ 
+<% for(let i=0; i<posts.length; i++){ %> 
   <section class="blog-section">
-    <div class="container-fluid blog-banner">
-      <div
-        class="blog-bg"
-        style="
-          background: url(../uploads/<%=posts[i].blogImage.filename%>);
-          background-size: cover;
-          background-position-y: 30%;
-        "
-      >
-        <div class="blog-type">
-          <h6><%= posts[i].blogCategory %></h6>
-        </div>
-      </div>
-      <div class="blog-content">
-        <h2><%= posts[i].blogTitle %></h2>
-        <p><%= posts[i].blogContent.substring(0,250)+ "......" %></p>
-        <br />
-        <a
-          class="hvr-underline-from-center"
-          href="/posts/<%= posts[i].blogTitle %>"
-          >Keep Reading</a
-        >
-        <br /><br /><br />
-        <hr />
-        <p>
-          <span class="author"
-            >By <strong><%= posts[i].authorName %></strong></span
-          >
-          <span class="date"><%= posts[i].blogDate %></span>
-        </p>
-      </div>
-    </div>
-  </section>
-  <% } %>
-
-  <section class="blog-section">
-    <div class="container-fluid blog-banner">
-      <div
-        class="blog-bg"
-        style="
+  <div class="container-fluid blog-banner">
+    <div class="blog-bg" style="
           background: url(../Assets/space.png);
           background-size: cover;
           background-position-y: 30%;
-        "
-      >
-        <div class="blog-type">
-          <h6>Physics</h6>
-        </div>
-      </div>
-      <div class="blog-content">
-        <h2>How Gravity affects Time?</h2>
-        <p>
-          Issac newton presumed that time was fixed, space was fixed and gravity
-          was a mysterious force that can act between two objects, these objects
-          not even touching each other. So he presumed that gravity can’t affect
-          the space and time but acts within ......
-        </p>
-        <br />
-        <a class="hvr-underline-from-center" href="/default/space"
-          >Keep Reading</a
-        >
-        <br /><br /><br />
-        <hr />
-        <p>
-          <span class="author">By <strong>Aman Malviya</strong></span>
-          <span class="date">August 10, 2020</span>
-        </p>
+        ">
+      <div class="blog-type">
+        <h6>Physics</h6>
       </div>
     </div>
-  </section>
-
-  <section class="blog-section">
-    <div class="container-fluid blog-banner">
-      <div
-        class="blog-bg"
-        style="
-          background: url(../Assets/girl.jpg);
-          background-size: cover;
-          background-position-y: 30%;
-        "
-      >
-        <div class="blog-type">
-          <h6>Facts</h6>
-        </div>
-      </div>
-      <div class="blog-content">
-        <h2>Falling sensation when going to sleep.</h2>
-        <p>
-          You are about to fall asleep and all of a sudden you feel like falling
-          from a height and your body jolts itself awake. No need to worry
-          because it’s pretty normal, it’s a common experience that every
-          individual goes through. It’s actually connected ......
-        </p>
-        <br />
-        <a class="hvr-underline-from-center" href="/default/hypnic"
-          >Keep Reading</a
-        >
-        <br /><br /><br />
-        <hr />
-        <p>
-          <span class="author">By <strong>Aman Malviya</strong></span>
-          <span class="date">August 1, 2020</span>
-        </p>
-      </div>
+    <div class="blog-content">
+      <h2><%= posts[i].blogTitle %></h2>
+      <p>
+        <%= posts[i].blogContent %> 
+      </p>
+      <br />
+      <a class="hvr-underline-from-center" href="/posts/<%= posts[i]._id %>" >Keep Reading</a>
+      <br /><br /><br />
+      <hr />
+      <p>
+        <span class="author">By <strong><%= posts[i].authorName %> </strong></span>
+        <span class="date"><%= posts[i].blogDate %></span>
+      </p>
     </div>
-  </section>
+  </div>
+</section>
+<% } %>
 
-  <section class="blog-section">
-    <div class="container-fluid blog-banner">
-      <div
-        class="blog-bg"
-        style="
-          background: url(../Assets/button.jpg);
-          background-size: cover;
-          background-position-y: 30%;
-        "
-      >
-        <div class="blog-type">
-          <h6>Physics</h6>
-        </div>
-      </div>
-      <div class="blog-content">
-        <h2>
-          A set is a member of itself if and only if it is not the member of
-          itself??
-        </h2>
-        <p>
-          Yes, here’s the contradiction. According to naive set theory, any
-          definable collection is a set. Consider a set R. If this set R is not
-          the member of itself then according to its definition, it must contain
-          itself. But if it contains itself then how ......
-        </p>
-        <br />
-        <a class="hvr-underline-from-center" href="/default/russel"
-          >Keep Reading</a
-        >
-        <br /><br /><br />
-        <hr />
-        <p>
-          <span class="author">By <strong>Aman Malviya</strong></span>
-          <span class="date">July 23, 2020</span>
-        </p>
-      </div>
-    </div>
-  </section>
 
-  <%- include("partials/footer") -%></posts.length;i++){
->
+<%- include("partials/footer") -%>

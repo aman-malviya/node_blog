@@ -43,12 +43,10 @@
                         Categories
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-
+                        <% for(let i=0; i<categories.length; i++){ %> 
                         <a class="dropdown-item dropdown-link-1 hvr-icon-wobble-horizontal"
-                            href="/categories/physics">Physics</a>
-
-                        <a class="dropdown-item hvr-icon-wobble-horizontal" href="/categories/facts">Life Style</a>
+                            href="/categories/<%= categories[i].category %> "><%= categories[i].category %> </a>
+                        <% } %> 
                     </div>
                 </li>
                 <li class="nav-item">

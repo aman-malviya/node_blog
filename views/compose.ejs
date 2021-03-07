@@ -1,5 +1,7 @@
 <%- include("partials/header") -%>
-
+<script>
+    const IMG_NAME = "<%= imgName %>";
+</script>
 <section class="compose">
     <div class="compose-title">
         <div class="compose-heading">
@@ -9,20 +11,22 @@
         </div>
     </div>
 
-    <form class="blog-panel" action="/compose" method="POST" enctype="multipart/form-data">
+    <form class="blog-panel" action="/compose" method="POST">
         <div class="form-group">
             <label for="select">Select a suitable Category for your Post</label>
             <select class="form-control" name="category" id="">
-                <option value="Physics">Physics</option>
-                <option value="LifeStyle">Life Style</option>
+                <% for(let j=0; j<categories.length; j++){ %> 
+                <option value="<%= categories[j].category %>"><%= categories[j].category %></option>
+                <% } %> 
             </select>
         </div>
-        <div class="form-group">
-            <label for="inputfile">Select an image to Post</label>
-            <input name="inputfile" class="choose-file" type="file" enctype="multipart/form-data" required>
+        <!-- <div class="form-group">
+            <label for="img">Select an image to Post</label>
+            <input id="photo" name="img" class="choose-file" type="file" enctype="multipart/form-data" required>
             <p style="font-size: 0.8rem" class="text-muted">Please choose a landscape image as it will be auto-resized.
             </p>
-        </div>
+            <button onclick="uploadImage()">Upload</button>
+        </div> -->
         <div class="form-group">
             <input name="author" class="form-control" type="text" placeholder="Enter Your Name" required>
         </div>
