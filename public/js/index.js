@@ -19,8 +19,5 @@ $("document").ready(function () {
     if (screen.width <= 600) {
         $(".nav-link").removeClass("hvr-underline-reveal");
     }
-    document.getElementsByClassName("year").forEach(el=>{
-        el.textContent=new Date().getFullYear();
-    })
 });
 
