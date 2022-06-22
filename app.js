@@ -1,34 +1,68 @@
 const express = require("express");
 const ejs = require("ejs");
-const _ = require("lodash");
 const multer = require("multer");
-const path = require("path");
 const mongoose = require("mongoose");
-const fs = require("fs");
 const favicon = require("express-favicon");
+const {GridFsStorage}=require("multer-gridfs-storage")
+const Grid=require("gridfs-stream");
 const app = express();
+require("dotenv").config();
 
 //Favicon
 app.use(favicon(__dirname + "/public/Assets/favicon.png"));
 
 // CONNECTING TO MONGOOSE DATABASE
 mongoose.connect(
-  "mongodb+srv://blanche:aman258@cluster0.onajj.mongodb.net/blanche?retryWrites=true&w=majority",
+  process.env.DB,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   }
-);
+).then(()=>{
+  console.log("Database successfully connected.");
+}).catch((err)=>{
+  console.log("Could not connect to database", err);
+});
+
+
+//Multer
+const storage=new GridFsStorage({
+  url:process.env.DB,
+  options:{
+    useNewUrlParser:true,
+    useUnifiedTopology:true
+  },
+  file: (req, file) => {
+    const match = ["image/png", "image/jpeg"];
+
+    if (match.indexOf(file.mimetype) === -1) {
+        const filename = `${Date.now()}`;
+        return filename;
+    }
+    return {
+        bucketName: "photos",
+        filename: `${Date.now()}`,
+    };
+  },
+})
+
+//Grid FS Stream
+let gfs;
+let conn=mongoose.connection;
+conn.once("open", ()=>{
+  gfs=Grid(conn.db, mongoose.mongo);
+  gfs.collection("photos");
+})
+
 
 //Newsletter Schema And Model
-
 const newsletterSchema = new mongoose.Schema({
   email: String,
 });
 const Email = mongoose.model("Email", newsletterSchema);
 
-//CONTACT SCHEMA AND MODEL
 
+//CONTACT SCHEMA AND MODEL
 const contactSchema = new mongoose.Schema({
   name: String,
   email: String,
@@ -36,6 +70,7 @@ const contactSchema = new mongoose.Schema({
   message: String,
 });
 const Contact = mongoose.model("Contact", contactSchema);
+
 
 // BLOG SCHEMA AND MODEL
 const blogPostSchema = new mongoose.Schema({
@@ -45,9 +80,11 @@ const blogPostSchema = new mongoose.Schema({
   blogContent: String,
   blogCategory: String,
   blogDate: String,
-  sortByDate: Date,
+  blogBanner:String,
+  timeStamp: Date,
 });
 const BlogPost = mongoose.model("BlogPost", blogPostSchema);
+
 
 //Category Schema
 const catSchema=new mongoose.Schema({
@@ -64,8 +101,10 @@ app.use(express.urlencoded());
 // STATIC DIRECTORY
 app.use(express.static(__dirname + "/public"));
 
+
 // VIEW ENGINE TO EJS
 app.set("view engine", "ejs");
+
 
 // GET REQUEST TO HOME ROUTE
 app.get("/home", function (req, res) {
@@ -81,35 +120,57 @@ app.get("/home", function (req, res) {
         }
       })
     }
-  }).sort({ sortByDate: -1 });
+  }).sort({ timeStamp: -1 });
 });
+
 
 //GET REQUEST TO ABOUT ROUTE
 app.get("/about", function (req, res) {
-  res.render("about");
-});
-
-//GET REQUEST TO CONTACT ROUTE
-app.get("/contact", function (req, res) {
-  res.render("contact");
-});
-
-//POST REQUEST TO CONTACT ROUTE
-app.post("/contact", function (req, res) {
-  const contact = new Contact({
-    name: req.body.clientName,
-    email: req.body.clientEmail,
-    subject: req.body.subject,
-    message: req.body.clientMessage,
-  });
-  contact.save(function (err) {
-    if (err) {
+  Cat.find({}, function(err, foundCats){
+    if(err){
       console.log(err);
-    } else {
-      res.render("msg-sent");
+    }else{
+      res.render("about", {categories:foundCats });
     }
   });
 });
+
+
+//GET REQUEST TO CONTACT ROUTE
+app.get("/contact", function (req, res) {
+  Cat.find({}, function(err, foundCats){
+    if(err){
+      console.log(err);
+    }else{
+      res.render("contact", {categories:foundCats });
+    }
+  });
+});
+
+
+//POST REQUEST TO CONTACT ROUTE
+app.post("/contact", function (req, res) {
+  Cat.find({}, function(err, foundCats){
+    if(err){
+      console.log(err);
+    }else{
+      const contact = new Contact({
+        name: req.body.clientName,
+        email: req.body.clientEmail,
+        subject: req.body.subject,
+        message: req.body.clientMessage,
+      });
+      contact.save(function (err) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("msg-sent", {categories:foundCats});
+        }
+      });
+    }
+  })
+});
+
 
 // GET REQUEST TO CATEGORY ROUTE
 app.get("/categories/:category", function (req, res) {
@@ -125,57 +186,63 @@ app.get("/categories/:category", function (req, res) {
         }
       })
     }
-  }).sort({ sortByDate: -1 });
+  }).sort({ timeStamp: -1 });
 });
 
-let sortDate;
-let postDate;
 //GET REQUEST TO COMPOSE ROUTE
 app.get("/compose", function (req, res) {
-
-  // DATE CREATION
-  const today = new Date();
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  postDate = months[today.getMonth()] + " " + today.getDate() + ", " + today.getFullYear();
-  sortDate = today.toISOString();
-
-
+  if(req.query.adminID === undefined || req.query.adminPassword === undefined){
+    return res.redirect("/home");
+  }
+  if(req.query.adminID !== process.env.ADMIN_ID || req.query.adminPassword !== process.env.ADMIN_PASSWORD){
+    return res.redirect("/home");
+  }
   Cat.find({}, function(err, foundCats){
         if(err){
           console.log(err);
         }else{
-          res.render("compose", {categories:foundCats, imgName:sortDate });
+          res.render("compose", {categories:foundCats});
         }
   })
 });
 
 //POST REQUEST TO COMPOSE ROUTE
-app.post("/compose", function (req, res) {
-
+app.post("/compose", multer({storage}).single("img"), function (req, res) {
+    // DATE CREATION
+    const today = new Date();
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    let displayDate = months[today.getMonth()] + " " + today.getDate() + ", " + today.getFullYear();
+    let timeStamp = today.toISOString();
   const blogPost = new BlogPost({
     authorName: req.body.author,
     blogTitle: req.body.title,
     blogDescription: req.body.description,
     blogContent: req.body.content,
     blogCategory: req.body.category,
-    blogDate: postDate,
-    sortByDate: sortDate,
+    blogDate: displayDate,
+    blogBanner:"http://localhost:3000/images/"+req.file.filename,
+    timeStamp: timeStamp,
   });
-  blogPost.save();
-  res.redirect("/home");
+  blogPost.save((err)=>{
+    if(err){
+      console.log(err);
+    }else{
+      res.redirect("/home");
+    }
+  });
 });
 
 //GET REQUEST TO POST ROUTE
@@ -196,13 +263,32 @@ app.get("/posts/:postId", function (req, res) {
 });
 
 //Newsletter Post Request
-app.post("/newsletter-signUp", function (req, res) {
-  const email = new Email({
-    email: req.body.subscriber,
-  });
-  email.save();
-  res.render("signed-up");
+app.post("/newsletter", function (req, res) {
+  Cat.find({}, function(err, foundCats){
+    if(err){
+      console.log(err);
+    }else{
+      const email = new Email({
+        email: req.body.subscriber,
+      });
+      email.save();
+      res.render("signed-up", {categories:foundCats});
+    }
+  })
 });
+
+
+//GET REQUEST FOR IMAGE
+app.get("/images/:filename", (req,res)=>{
+  gfs.files.findOne({filename:req.params.filename}, (err, file)=>{
+    if(err || !file){
+      return res.status(404).json({err: "No file exists"});
+    }else{
+        let readStream=gfs.createReadStream(file.filename);
+        readStream.pipe(res);
+    }
+  })
+})
 
 //LISTENING TO PORT
 let port = process.env.PORT;

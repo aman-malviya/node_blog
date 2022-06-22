@@ -1,8 +1,8 @@
-<%- include("partials/header") -%>
+<%- include("partials/header2") -%>
 
 <section class="blog-section">
     <div class="container-fluid blog-banner">
-        <div class="blog-bg" style="background-size: cover; background-position-y:30%;">
+        <div class="blog-bg" style="background: url(<%= post.blogBanner %>);background-size: cover; background-position-y:30%;">
             <div class="blog-type">
                 <h6><%= post.blogCategory %></h6>
             </div>

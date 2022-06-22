@@ -1,5 +1,5 @@
 <%- include("partials/header") -%>
-
+<!-- 
 <section class="category-section">
   <div class="row no-gutters">
     <% for(let i=0; i<categories.length && i<4; i++){ %> 
@@ -14,13 +14,13 @@
     </div>
     <% } %> 
   </div>
-</section>
+</section> -->
  
 <% for(let i=0; i<posts.length; i++){ %> 
   <section class="blog-section">
   <div class="container-fluid blog-banner">
     <div class="blog-bg" style="
-          background: url(../Assets/space.png);
+          background: url(<%= posts[i].blogBanner %>);
           background-size: cover;
           background-position-y: 30%;
         ">
