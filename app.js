@@ -106,6 +106,11 @@ app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 
 
+//GET REQUEST TO /
+app.get("/", (req, res)=>{
+  return res.redirect("/home");
+})
+
 // GET REQUEST TO HOME ROUTE
 app.get("/home", function (req, res) {
   BlogPost.find({}, function (err, foundPosts) {
@@ -233,7 +238,7 @@ app.post("/compose", multer({storage}).single("img"), function (req, res) {
     blogContent: req.body.content,
     blogCategory: req.body.category,
     blogDate: displayDate,
-    blogBanner:"http://localhost:3000/images/"+req.file.filename,
+    blogBanner:"https://amanmalviya.herokuapp.com/images/"+req.file.filename,
     timeStamp: timeStamp,
   });
   blogPost.save((err)=>{
