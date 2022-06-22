@@ -279,6 +279,9 @@ footer{
     letter-spacing: 1px;
     padding: 4% 0;
 }
+.about-text p{
+    text-align: justify;
+}
 .about-text ul{
     color: #9a9aaf;
 }
@@ -289,25 +292,25 @@ footer{
     height: 110px;
     transform: translate(-80px,0);
 }
-.social-media{
+.sm{
     position: relative;
     display: flex;
     align-items: center;
 }
-.social-media ul{
+.sm ul{
     position: absolute;
     right: 3%;
     list-style-type: none;
     display: flex;
 }
-.social-media ul li{
+.sm ul li{
 padding: 0 10px;
 font-size: 1.4rem;
 }
-.social-media ul li a{
+.sm ul li a{
     color: #7c7c8c;
 }
-.social-media ul li a:hover{
+.sm ul li a:hover{
     color: #a2a2c0;
 }
 @media(max-width:600px){
@@ -324,10 +327,10 @@ font-size: 1.4rem;
     .signature img{
         height: 80px;
     }
-    .social-media ul li{
+    .sm ul li{
         padding: 0 5px;
     }
-    .social-media{
+    .sm{
         transform: translate(0, -35px);
     }
 }
@@ -647,9 +650,7 @@ label[for="select"]{
         font-size:1rem;
     }
     .blog-content p{
-        font-size:0.9rem;
-        
-}
+        font-size:0.9rem;     
     }
     .blog-content a{
         font-size:0.9rem;
@@ -660,4 +661,8 @@ label[for="select"]{
     .blog-type{
         outline-offset: 10px;
     }
+}
+input:active, input:focus, textarea:active, textarea:focus{
+    outline: none !important;
+    box-shadow: none !important;
 }
