@@ -31,7 +31,7 @@
     <div class="blog-content">
       <h2><%= posts[i].blogTitle %></h2>
       <p>
-        <%= posts[i].blogContent %> 
+        <%= posts[i].blogContent.substring(0,200)+"..." %> 
       </p>
       <br />
       <a class="hvr-underline-from-center" href="/posts/<%= posts[i]._id %>" >Keep Reading</a>

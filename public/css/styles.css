@@ -600,6 +600,7 @@ label[for="select"]{
     text-align: left;
 }
 .blog-content p{
+    white-space:pre;
     color: #7c7c8c;
 }
 .parameter p{
