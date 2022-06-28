@@ -103,11 +103,12 @@ body{
     position: fixed;
     left: 0;
     top: 30%;
+    display: none;
 }
 @media (max-width:600px){
     .social-wrapper{
         position: inherit;
-        display: flex;
+        display: none;
         justify-content: center;
         align-items: center;
         padding: 2% 0;
