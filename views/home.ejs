@@ -25,12 +25,12 @@
           background-position-y: 30%;
         ">
       <div class="blog-type">
-        <h6>Physics</h6>
+        <h6><%= posts[i].blogCategory %></h6>
       </div>
     </div>
     <div class="blog-content">
       <h2><%= posts[i].blogTitle %></h2>
-      <p>
+      <p class="blogtxt">
         <%= posts[i].blogContent.substring(0,200)+"..." %> 
       </p>
       <br />

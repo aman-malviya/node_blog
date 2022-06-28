@@ -602,6 +602,9 @@ label[for="select"]{
 .blog-content p{
     color: #7c7c8c;
 }
+.blogtxt{
+    white-space: pre-line;
+}
 .parameter p{
     text-align: justify;
   text-justify: inter-word;
