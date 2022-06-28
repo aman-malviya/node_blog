@@ -38,7 +38,12 @@
             <textarea required placeholder="Your Post Content" class="form-control" name="content" id="" cols="30"
                 rows="8"></textarea>
         </div>
+        <% if(authorized){ %>
         <button type="submit">Publish</button>
+        <% }else{ %>
+        <button disabled="true" type="submit">Unauthorized</button> 
+        <p class="text-muted text-center pt-2">Only admins can post.</p>
+        <% } %> 
     </form>
 </section>
 

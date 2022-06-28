@@ -667,3 +667,6 @@ input:active, input:focus, textarea:active, textarea:focus{
     outline: none !important;
     box-shadow: none !important;
 }
+button:disabled{
+    background-color:#7c7c8c;
+}

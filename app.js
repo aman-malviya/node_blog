@@ -196,17 +196,15 @@ app.get("/categories/:category", function (req, res) {
 
 //GET REQUEST TO COMPOSE ROUTE
 app.get("/compose", function (req, res) {
-  if(req.query.adminID === undefined || req.query.adminPassword === undefined){
-    return res.redirect("/home");
-  }
-  if(req.query.adminID !== process.env.ADMIN_ID || req.query.adminPassword !== process.env.ADMIN_PASSWORD){
-    return res.redirect("/home");
-  }
   Cat.find({}, function(err, foundCats){
         if(err){
           console.log(err);
         }else{
-          res.render("compose", {categories:foundCats});
+          if(req.query.adminID === process.env.ADMIN_ID && req.query.adminPassword === process.env.ADMIN_PASSWORD){
+            res.render("compose", {categories:foundCats, authorized:true});;
+          }else{
+            res.render("compose", {categories:foundCats, authorized:false});
+          }
         }
   })
 });
