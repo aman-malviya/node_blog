@@ -571,10 +571,13 @@ label[for="select"]{
     overflow: hidden;
     text-align: center;
 }
-.blog-bg{
-    padding: 40% 6% 0%;
+.hat{
+    width: 84%;
+    height: 8px;
+    background-color: #01a9b4;
+    margin: auto;
+    border-radius: 180px 180px 0 0 !important;
 }
-
 .blog-type{
     background-color: #fff;
     padding: 4%  0 0;
@@ -642,9 +645,6 @@ label[for="select"]{
     }
     .blog-section{
         padding: 20% 6% 0%;
-    }
-    .blog-bg{
-        padding: 50% 10% 0;
     }
     .blog-content h2{
         padding: 5%;

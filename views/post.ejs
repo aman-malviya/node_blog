@@ -1,22 +1,23 @@
 <%- include("partials/header2") -%>
 
 <section class="blog-section">
-    <div class="container-fluid blog-banner">
-        <div class="blog-bg" style="background: url(<%= post.blogBanner %>);background-size: cover; background-position-y:30%;">
-            <div class="blog-type">
-                <h6><%= post.blogCategory %></h6>
-            </div>
-        </div>
-        <div class="blog-content parameter">
-            <h2><%= post.blogTitle %> </h2>
-            <h4><%= post.blogDescription %></h4>
-            <p class="align-left blogtxt"><%= post.blogContent %> </p>
-            <br><br><br>
-            <hr>
-            <p><span class="author">By <strong><%= post.authorName %></strong></span> <span class="date"><%= post.blogDate %></span></p>
-        </div>
+  <div class="container-fluid blog-banner">
+    <div class="hat"></div>
+    <div class="blog-type">
+      <h6><%= post.blogCategory %></h6>
     </div>
+    <div class="blog-content parameter">
+      <h2><%= post.blogTitle %></h2>
+      <h4><%= post.blogDescription %></h4>
+      <p class="align-left blogtxt"><%= post.blogContent %></p>
+      <br /><br /><br />
+      <hr />
+      <p>
+        <span class="author">By <strong><%= post.authorName %></strong></span>
+        <span class="date"><%= post.blogDate %></span>
+      </p>
+    </div>
+  </div>
 </section>
-
 
 <%- include("partials/footer") -%>

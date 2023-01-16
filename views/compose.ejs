@@ -8,7 +8,7 @@
         </div>
     </div>
 
-    <form class="blog-panel" action="/compose" method="POST" enctype="multipart/form-data">
+    <form class="blog-panel" action="/compose" method="POST">
         <div class="form-group">
             <label for="select">Select a suitable Category for your Post</label>
             <select class="form-control" name="category" id="">
@@ -17,12 +17,12 @@
                 <% } %> 
             </select>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="img">Select an image to Post</label>
             <input id="photo" name="img" class="choose-file" type="file" accept="image/*" required>
             <p style="font-size: 0.8rem" class="text-muted">Please choose a landscape image as it will be auto-resized.
             </p>
-        </div>
+        </div> -->
         <div class="form-group">
             <input name="author" class="form-control" type="text" placeholder="Enter Your Name" required>
         </div>

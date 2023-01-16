@@ -19,14 +19,9 @@
 <% for(let i=0; i<posts.length; i++){ %> 
   <section class="blog-section">
   <div class="container-fluid blog-banner">
-    <div class="blog-bg" style="
-          background: url(<%= posts[i].blogBanner %>);
-          background-size: cover;
-          background-position-y: 30%;
-        ">
-      <div class="blog-type">
-        <h6><%= posts[i].blogCategory %></h6>
-      </div>
+    <div class="hat"></div>
+    <div class="blog-type">
+      <h6><%= posts[i].blogCategory %></h6>
     </div>
     <div class="blog-content">
       <h2><%= posts[i].blogTitle %></h2>
